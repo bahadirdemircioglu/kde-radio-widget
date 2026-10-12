@@ -120,9 +120,11 @@ PlasmoidItem {
         id: player
 
         audioOutput: AudioOutput {
-            volume: QtMultimedia.convertVolume(root.volume / 100,
-                                               QtMultimedia.LogarithmicVolumeScale,
-                                               QtMultimedia.LinearVolumeScale)
+            // Kaydırıcı yüzdesini algısal (yaklaşık logaritmik) bir eğriyle
+            // doğrusal genliğe çevir: %50 kaydırıcı ≈ %25 genlik (-12 dB).
+            // QtMultimedia/QtAudio tekil nesnesinin adı Qt sürümüne göre
+            // değiştiği için dönüşüm burada hesaplanır.
+            volume: Math.pow(Math.max(0, Math.min(100, root.volume)) / 100, 2)
         }
 
         onErrorOccurred: (error, errorString) => {
