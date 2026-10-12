@@ -6,23 +6,23 @@
 
     <group name="General">
         <entry name="stations" type="String">
-            <label>İstasyon listesi (JSON dizisi: name, url, favorite)</label>
+            <label>İstasyon listesi (JSON dizisi: name, url, favorite, category)</label>
             <default>[
-  {"name": "TRT Radyo 1", "url": "https://rd-trtradyo1.medya.trt.com.tr/master.m3u8", "favorite": false},
-  {"name": "TRT Radyo 3", "url": "https://radio-trtradyo3.live.trt.com.tr/master.m3u8", "favorite": true},
-  {"name": "TRT Türkü", "url": "https://radio-trtturku.live.trt.com.tr/master.m3u8", "favorite": false},
-  {"name": "TRT Nağme", "url": "https://radio-trtnagme.live.trt.com.tr/master.m3u8", "favorite": false},
-  {"name": "TRT Radyo Haber", "url": "https://radio-trtradyohaber.live.trt.com.tr/master.m3u8", "favorite": false},
-  {"name": "Power FM", "url": "https://listen.powerapp.com.tr/powerfm/abr/playlist.m3u8", "favorite": false},
-  {"name": "PowerTürk", "url": "https://listen.powerapp.com.tr/powerturk/abr/playlist.m3u8", "favorite": false},
-  {"name": "Kral FM", "url": "https://ssldyg2.radyotvonline.com/smil/smil:kralfm.smil/playlist.m3u8", "favorite": false},
-  {"name": "Kral Pop", "url": "https://dygedge.radyotvonline.net/kralpop/playlist.m3u8", "favorite": false},
-  {"name": "Virgin Radio", "url": "https://25503.live.streamtheworld.com/VIRGIN_RADIO_SC", "favorite": false},
-  {"name": "Radyo Fenomen", "url": "https://live.radyofenomen.com/fenomen/128/icecast.audio", "favorite": false},
-  {"name": "Alem FM", "url": "https://turkmedya.radyotvonline.net/alemfmaac", "favorite": false},
-  {"name": "Radyo Voyage", "url": "https://ssldyg.radyotvonline.com/pozitif/smil:voyage.smil/playlist.m3u8", "favorite": false},
-  {"name": "Radyo Eksen", "url": "https://ssldyg.radyotvonline.com/pozitif/smil:eksen.smil/chunklist.m3u8", "favorite": false},
-  {"name": "Joy FM", "url": "https://provisioning.streamtheworld.com/pls/JOY_FMAAC.pls", "favorite": false}
+  {"name": "TRT Radyo Haber", "url": "https://radio-trtradyohaber.live.trt.com.tr/master.m3u8", "favorite": false, "category": "Haber"},
+  {"name": "TRT Radyo 1", "url": "https://rd-trtradyo1.medya.trt.com.tr/master.m3u8", "favorite": false, "category": "Genel"},
+  {"name": "TRT Radyo 3", "url": "https://radio-trtradyo3.live.trt.com.tr/master.m3u8", "favorite": true, "category": "Klasik ve Caz"},
+  {"name": "TRT Nağme", "url": "https://radio-trtnagme.live.trt.com.tr/master.m3u8", "favorite": false, "category": "Türk Müziği"},
+  {"name": "TRT Türkü", "url": "https://radio-trtturku.live.trt.com.tr/master.m3u8", "favorite": false, "category": "Türk Müziği"},
+  {"name": "Power FM", "url": "https://listen.powerapp.com.tr/powerfm/abr/playlist.m3u8", "favorite": false, "category": "Pop"},
+  {"name": "PowerTürk", "url": "https://listen.powerapp.com.tr/powerturk/abr/playlist.m3u8", "favorite": false, "category": "Pop"},
+  {"name": "Kral FM", "url": "https://ssldyg2.radyotvonline.com/smil/smil:kralfm.smil/playlist.m3u8", "favorite": false, "category": "Pop"},
+  {"name": "Kral Pop", "url": "https://dygedge.radyotvonline.net/kralpop/playlist.m3u8", "favorite": false, "category": "Pop"},
+  {"name": "Radyo Fenomen", "url": "https://live.radyofenomen.com/fenomen/128/icecast.audio", "favorite": false, "category": "Pop"},
+  {"name": "Alem FM", "url": "https://turkmedya.radyotvonline.net/alemfmaac", "favorite": false, "category": "Pop"},
+  {"name": "Joy FM", "url": "https://provisioning.streamtheworld.com/pls/JOY_FMAAC.pls", "favorite": false, "category": "Pop"},
+  {"name": "Virgin Radio", "url": "https://25503.live.streamtheworld.com/VIRGIN_RADIO_SC", "favorite": false, "category": "Yabancı"},
+  {"name": "Radyo Voyage", "url": "https://ssldyg.radyotvonline.com/pozitif/smil:voyage.smil/playlist.m3u8", "favorite": false, "category": "Yabancı"},
+  {"name": "Radyo Eksen", "url": "https://ssldyg.radyotvonline.com/pozitif/smil:eksen.smil/chunklist.m3u8", "favorite": false, "category": "Yabancı"}
 ]</default>
         </entry>
         <entry name="lastStationUrl" type="String">

@@ -18,16 +18,47 @@ PlasmoidItem {
     // Ayarlardaki JSON dizisinin okunmuş hali: [{name, url, favorite}]
     readonly property var stations: Stations.parse(Plasmoid.configuration.stations)
 
-    // Açılır pencerede favoriler üstte, kalanlar sırayla. origIndex, stations
-    // dizisindeki gerçek konumdur; çalma/favori işlemleri onu kullanır.
+    // Listede önce "Favoriler" bölümü, sonra kategoriler (alfabetik), en sonda
+    // kategorisi olmayanlar "Diğer" altında. Her öğenin section alanı bölüm
+    // başlığıdır; hiç kategori ve favori yoksa başlık gösterilmez. origIndex,
+    // stations dizisindeki gerçek konumdur; çalma/favori işlemleri onu kullanır.
     readonly property var displayStations: {
         var fav = [];
-        var rest = [];
+        var byCategory = {};
+        var categories = [];
+        var anySection = false;
         for (var i = 0; i < stations.length; i++) {
             var s = Object.assign({}, stations[i], { origIndex: i });
-            (s.favorite ? fav : rest).push(s);
+            if (s.favorite) {
+                s.section = i18n("Favoriler");
+                fav.push(s);
+                anySection = true;
+                continue;
+            }
+            var c = (s.category || "").trim();
+            if (c !== "") anySection = true;
+            if (!byCategory[c]) {
+                byCategory[c] = [];
+                categories.push(c);
+            }
+            byCategory[c].push(s);
         }
-        return fav.concat(rest);
+        categories.sort(function (a, b) {
+            if (a === "") return 1;
+            if (b === "") return -1;
+            return a.localeCompare(b);
+        });
+        var out = fav;
+        for (var k = 0; k < categories.length; k++) {
+            var group = byCategory[categories[k]];
+            for (var j = 0; j < group.length; j++) {
+                group[j].section = categories[k] !== "" ? categories[k] : i18n("Diğer");
+                out.push(group[j]);
+            }
+        }
+        if (!anySection)
+            for (var n = 0; n < out.length; n++) out[n].section = "";
+        return out;
     }
 
     property int currentIndex: -1
@@ -226,16 +257,26 @@ PlasmoidItem {
         if (i >= 0) playStation(i);
     }
 
+    // Önceki/sonraki, listede görünen sırayı (favoriler, kategoriler) izler.
+    function displayPosition() {
+        for (var i = 0; i < displayStations.length; i++)
+            if (displayStations[i].origIndex === currentIndex) return i;
+        return -1;
+    }
+
     function next() {
-        if (stations.length === 0) return;
-        playStation((currentIndex + 1) % stations.length);
+        var n = displayStations.length;
+        if (n === 0) return;
+        var p = displayPosition();
+        playStation(displayStations[(p + 1) % n].origIndex);
     }
 
     function previous() {
-        if (stations.length === 0) return;
-        var i = currentIndex < 0 ? stations.length - 1
-                                 : (currentIndex - 1 + stations.length) % stations.length;
-        playStation(i);
+        var n = displayStations.length;
+        if (n === 0) return;
+        var p = displayPosition();
+        var i = p < 0 ? n - 1 : (p - 1 + n) % n;
+        playStation(displayStations[i].origIndex);
     }
 
     function setVolume(value) {

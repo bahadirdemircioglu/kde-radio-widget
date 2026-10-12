@@ -165,6 +165,17 @@ PlasmaExtras.Representation {
             clip: true
             reuseItems: false
             delegate: StationDelegate {}
+
+            // Kategori başlıkları (Favoriler, Haber, Pop, …)
+            section.property: "section"
+            section.criteria: ViewSection.FullString
+            section.delegate: Kirigami.ListSectionHeader {
+                required property string section
+                width: stationList.width
+                text: section
+                visible: section !== ""
+                height: visible ? implicitHeight : 0
+            }
         }
     }
 

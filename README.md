@@ -3,7 +3,9 @@
 Panelde duran, tıklayınca açılan küçük bir radyo oynatıcısı. İstasyon
 adreslerini kendiniz ekler, tek tıkla dinlersiniz.
 
-- İstasyon listesi, favoriler en üstte
+- İstasyon listesi; favoriler en üstte, kalanlar kategori başlıkları altında
+- Bağlantı doğrulama: adres girildiğinde ve toplu eklemede yayın sessizce
+  açılarak denenir, çalışmayanlar işaretlenir
 - Çal / durdur, önceki / sonraki, ses kaydırıcısı
 - Panel ikonunda durum: çalıyor (yeşil nokta), bağlanıyor, hata
 - Orta tık ile çal/durdur, fare tekerleği ile ses
@@ -66,19 +68,25 @@ atmadan bir terminalde çalıştırın; `console.log` ve QML hataları orada gö
 
 ## İstasyon ekleme
 
-**Ayarlar > İstasyonlar** sekmesinde her satır bir ad ve bir yayın adresidir.
+**Ayarlar > İstasyonlar** sekmesinde her satır bir ad, bir yayın adresi ve
+isteğe bağlı bir kategoridir. Adres yazılıp alandan çıkıldığında bağlantı
+kendiliğinden denenir; satırın başındaki simge yeşil onay (çalışıyor) ya da
+kırmızı hata (çalışmıyor, üzerine gelince nedeni) olur. **Tümünü test et**
+listenin tamamını sırayla dener.
+
 **Yapıştırarak ekle** ile şu biçimlerden herhangi birini toplu ekleyebilirsiniz:
 
 ```
-#EXTINF:-1,TRT Radyo 3
-https://radio-trtradyo3.live.trt.com.tr/master.m3u8
-Power FM | https://listen.powerapp.com.tr/powerfm/abr/playlist.m3u8
+#EXTINF:-1 group-title="Haber",TRT Radyo Haber
+https://radio-trtradyohaber.live.trt.com.tr/master.m3u8
+Pop > Power FM | https://listen.powerapp.com.tr/powerfm/abr/playlist.m3u8
 Kral FM : https://ssldyg2.radyotvonline.com/smil/smil:kralfm.smil/playlist.m3u8
 https://live.radyofenomen.com/fenomen/128/icecast.audio
 ```
 
-Zaten listede olan adresler atlanır. Bir adresin çalıştığını hızlıca test
-etmek için:
+**Kontrol et** düğmesi bulunan adresleri tek tek dener; sonra yalnızca
+çalışanları ya da hepsini ekleyebilirsiniz. Zaten listede olan adresler
+atlanır. Bir adresi elle test etmek için:
 
 ```sh
 mpv https://radio-trtradyo3.live.trt.com.tr/master.m3u8
