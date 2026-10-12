@@ -183,8 +183,6 @@ PlasmaExtras.Representation {
 
     // ---- Alt bölüm --------------------------------------------------------
     footer: PlasmaExtras.PlasmoidHeading {
-        location: PlasmaExtras.PlasmoidHeading.Location.Footer
-
         contentItem: RowLayout {
             spacing: Kirigami.Units.smallSpacing
 
