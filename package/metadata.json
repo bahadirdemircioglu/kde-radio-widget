@@ -1,0 +1,31 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Bahadır Demircioğlu"
+            }
+        ],
+        "BugReportUrl": "https://github.com/bahadirdemircioglu/kde-radio-widget/issues",
+        "Category": "Multimedia",
+        "Description": "Panelden internet radyosu dinleyin",
+        "Description[en]": "Listen to internet radio from your panel",
+        "EnabledByDefault": true,
+        "FormFactors": [
+            "desktop",
+            "tablet",
+            "handset"
+        ],
+        "Icon": "radio",
+        "Id": "com.github.bahadirdemircioglu.radyo",
+        "License": "GPL-3.0-or-later",
+        "Name": "Radyo",
+        "Name[en]": "Radio",
+        "Version": "0.1.0",
+        "Website": "https://github.com/bahadirdemircioglu/kde-radio-widget"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.multimedia"
+    ]
+}
