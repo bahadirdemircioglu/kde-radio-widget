@@ -13,10 +13,11 @@ import org.kde.kirigami as Kirigami
 PlasmaExtras.Representation {
     id: full
 
-    Layout.minimumWidth: Kirigami.Units.gridUnit * 18
-    Layout.minimumHeight: Kirigami.Units.gridUnit * 20
-    Layout.preferredWidth: Kirigami.Units.gridUnit * 23
-    Layout.preferredHeight: Kirigami.Units.gridUnit * 30
+    // Masaüstünde küçültülebilsin; açılır pencerede rahat bir başlangıç boyutu.
+    Layout.minimumWidth: Kirigami.Units.gridUnit * 12
+    Layout.minimumHeight: Kirigami.Units.gridUnit * 10
+    Layout.preferredWidth: Kirigami.Units.gridUnit * 22
+    Layout.preferredHeight: Kirigami.Units.gridUnit * 28
 
     collapseMarginsHint: true
 

@@ -55,8 +55,18 @@ PlasmoidItem {
     // ---- Plasmoid ----------------------------------------------------------
 
     Plasmoid.icon: "radio"
-    switchWidth: Kirigami.Units.gridUnit * 14
-    switchHeight: Kirigami.Units.gridUnit * 18
+
+    // Panelde tek ikon + açılır pencere; masaüstünde doğrudan tam görünüm.
+    readonly property bool inPanel: Plasmoid.formFactor === PlasmaCore.Types.Horizontal
+                                    || Plasmoid.formFactor === PlasmaCore.Types.Vertical
+    preferredRepresentation: inPanel ? compactRepresentation : fullRepresentation
+
+    // Masaüstünde Plasma'nın standart arka planı; düzenleme kipinden kapatılabilir.
+    Plasmoid.backgroundHints: PlasmaCore.Types.DefaultBackground | PlasmaCore.Types.ConfigurableBackground
+
+    // Masaüstünde bu boyutun altına inilirse ikon görünümüne düşer.
+    switchWidth: Kirigami.Units.gridUnit * 10
+    switchHeight: Kirigami.Units.gridUnit * 8
 
     toolTipMainText: isActive && currentName !== "" ? currentName : Plasmoid.title
     toolTipSubText: statusText()
