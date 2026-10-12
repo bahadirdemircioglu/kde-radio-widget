@@ -61,6 +61,74 @@ PlasmoidItem {
         return out;
     }
 
+    // ---- Akordiyon --------------------------------------------------------
+    // Kategori başlıkları varsayılan olarak kapalıdır; açık olanlar ayarda
+    // saklanır. rowsModel, listede çizilen satırlardır: her bölüm için bir
+    // "header" satırı ve bölüm açıksa istasyon satırları.
+
+    readonly property var expandedSections: {
+        try {
+            var a = JSON.parse(Plasmoid.configuration.expandedSections);
+            return Array.isArray(a) ? a : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function isExpanded(section) {
+        return expandedSections.indexOf(section) !== -1;
+    }
+
+    function setExpanded(section, expanded) {
+        if (section === "" || isExpanded(section) === expanded) return;
+        var list = expandedSections.slice();
+        if (expanded) list.push(section);
+        else list.splice(list.indexOf(section), 1);
+        Plasmoid.configuration.expandedSections = JSON.stringify(list);
+    }
+
+    function toggleSection(section) {
+        setExpanded(section, !isExpanded(section));
+    }
+
+    ListModel { id: rowsModel }
+
+    function rebuildRows() {
+        var counts = {};
+        for (var c = 0; c < displayStations.length; c++)
+            counts[displayStations[c].section] = (counts[displayStations[c].section] || 0) + 1;
+
+        rowsModel.clear();
+        var lastSection = null;
+        for (var i = 0; i < displayStations.length; i++) {
+            var s = displayStations[i];
+            if (s.section !== "" && s.section !== lastSection) {
+                rowsModel.append({
+                    type: "header", section: s.section, stationCount: counts[s.section],
+                    expanded: isExpanded(s.section),
+                    name: "", url: "", favorite: false, category: "", origIndex: -1
+                });
+                lastSection = s.section;
+            }
+            if (s.section === "" || isExpanded(s.section)) {
+                rowsModel.append({
+                    type: "station", section: s.section, stationCount: 0, expanded: false,
+                    name: s.name, url: s.url, favorite: s.favorite === true,
+                    category: s.category || "", origIndex: s.origIndex
+                });
+            }
+        }
+    }
+
+    onDisplayStationsChanged: rebuildRows()
+    onExpandedSectionsChanged: rebuildRows()
+
+    function sectionOf(index) {
+        for (var i = 0; i < displayStations.length; i++)
+            if (displayStations[i].origIndex === index) return displayStations[i].section;
+        return "";
+    }
+
     property int currentIndex: -1
     property string currentUrl: ""
     property string currentNameCache: ""
@@ -161,6 +229,7 @@ PlasmoidItem {
     }
 
     Component.onCompleted: {
+        rebuildRows();
         if (Plasmoid.configuration.autoplayLast && stations.length > 0)
             playLast();
     }
@@ -202,6 +271,7 @@ PlasmoidItem {
         currentIndex = index;
         currentUrl = st.url;
         currentNameCache = st.name;
+        setExpanded(sectionOf(index), true);
         errorText = "";
         bitrateKbps = 0;
         status = "connecting";

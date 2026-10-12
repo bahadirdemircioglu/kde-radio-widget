@@ -5,6 +5,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as QQC2
+import Qt.labs.qmlmodels
 import org.kde.plasma.plasmoid
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.plasma.extras as PlasmaExtras
@@ -159,22 +160,23 @@ PlasmaExtras.Representation {
         anchors.fill: parent
         visible: root.stations.length > 0
 
+        // Akordiyon: başlık satırları ve açık bölümlerin istasyonları aynı listede.
         ListView {
             id: stationList
-            model: root.displayStations
+            model: rowsModel
             clip: true
             reuseItems: false
-            delegate: StationDelegate {}
 
-            // Kategori başlıkları (Favoriler, Haber, Pop, …)
-            section.property: "section"
-            section.criteria: ViewSection.FullString
-            section.delegate: Kirigami.ListSectionHeader {
-                required property string section
-                width: stationList.width
-                text: section
-                visible: section !== ""
-                height: visible ? implicitHeight : 0
+            delegate: DelegateChooser {
+                role: "type"
+                DelegateChoice {
+                    roleValue: "header"
+                    SectionHeaderDelegate {}
+                }
+                DelegateChoice {
+                    roleValue: "station"
+                    StationDelegate {}
+                }
             }
         }
     }

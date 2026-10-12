@@ -25,6 +25,10 @@
   {"name": "Radyo Eksen", "url": "https://ssldyg.radyotvonline.com/pozitif/smil:eksen.smil/chunklist.m3u8", "favorite": false, "category": "Yabancı"}
 ]</default>
         </entry>
+        <entry name="expandedSections" type="String">
+            <label>Açık duran kategori başlıkları (JSON dizisi); varsayılan hepsi kapalı</label>
+            <default>[]</default>
+        </entry>
         <entry name="lastStationUrl" type="String">
             <label>En son çalınan istasyonun adresi</label>
             <default></default>

@@ -14,23 +14,23 @@ PlasmaComponents3.ItemDelegate {
     id: delegate
 
     required property int index
-    required property var modelData
+    required property var model
 
-    readonly property int stationIndex: modelData.origIndex
+    readonly property int stationIndex: model.origIndex
     readonly property bool isCurrent: stationIndex === root.currentIndex
     readonly property bool isErrored: isCurrent && root.status === "error"
     readonly property string subtitle: {
-        var host = Playlist.hostOf(modelData.url);
-        var kind = Playlist.streamKind(modelData.url);
+        var host = Playlist.hostOf(model.url);
+        var kind = Playlist.streamKind(model.url);
         if (host && kind) return host + " · " + kind;
-        return host || kind || modelData.url;
+        return host || kind || model.url;
     }
 
     width: ListView.view ? ListView.view.width : implicitWidth
     highlighted: isCurrent
-    text: modelData.name
+    text: model.name
 
-    Accessible.name: modelData.name
+    Accessible.name: model.name
     Accessible.description: isCurrent ? root.statusText() : subtitle
 
     onClicked: {
@@ -59,7 +59,7 @@ PlasmaComponents3.ItemDelegate {
 
             PlasmaComponents3.Label {
                 Layout.fillWidth: true
-                text: delegate.modelData.name
+                text: delegate.model.name
                 elide: Text.ElideRight
                 font.weight: delegate.isCurrent ? Font.DemiBold : Font.Normal
             }
@@ -77,10 +77,10 @@ PlasmaComponents3.ItemDelegate {
         }
 
         PlasmaComponents3.ToolButton {
-            icon.name: delegate.modelData.favorite ? "starred-symbolic" : "non-starred-symbolic"
+            icon.name: delegate.model.favorite ? "starred-symbolic" : "non-starred-symbolic"
             display: QQC2.AbstractButton.IconOnly
-            text: delegate.modelData.favorite ? i18n("Favorilerden çıkar") : i18n("Favorilere ekle")
-            opacity: delegate.modelData.favorite || delegate.hovered ? 1 : 0.35
+            text: delegate.model.favorite ? i18n("Favorilerden çıkar") : i18n("Favorilere ekle")
+            opacity: delegate.model.favorite || delegate.hovered ? 1 : 0.35
             onClicked: root.toggleFavorite(delegate.stationIndex)
 
             PlasmaComponents3.ToolTip.text: text

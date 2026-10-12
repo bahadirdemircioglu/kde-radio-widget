@@ -3,7 +3,7 @@
 Panelde duran, tıklayınca açılan küçük bir radyo oynatıcısı. İstasyon
 adreslerini kendiniz ekler, tek tıkla dinlersiniz.
 
-- İstasyon listesi; favoriler en üstte, kalanlar kategori başlıkları altında
+- Akordiyon istasyon listesi: favoriler ve kategoriler başlık altında, tıklayınca açılır; çalan istasyonun bölümü kendiliğinden açılır
 - Bağlantı doğrulama: adres girildiğinde ve toplu eklemede yayın sessizce
   açılarak denenir, çalışmayanlar işaretlenir
 - Çal / durdur, önceki / sonraki, ses kaydırıcısı
